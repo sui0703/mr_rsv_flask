@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2 class="m-5" style="text-align: center;">予約詳細</h2>
+<div class="card w-50 mb-3" style="margin: auto;">
+    <div class="card-body">
+        <p class="ml-3" style="font-size: 0.5;">予約 ID :  {{ post.id }}</p>
+        <p class="ml-3" style="font-size: 0.5;">予約者 :  {{ post.name }}</p>
+        <p class="ml-3" style="font-size: 0.5;">利用日 : {{ post.rsv_date.date() }}</p>
+        <p class="ml-3" style="font-size: 0.5;">利用開始時刻 : {{ post.date_start.time() }}</p>
+        <p class="ml-3" style="font-size: 0.5;">利用終了時刻 : {{ post.date_end.time() }}</p>
+        <p class="ml-3" style="font-size: 0.5;">詳細 : {{ post.detail }}</p>
+        <p class="ml-3" style="font-size: 0.5;">申し込み日 : {{ post.apply_date }}</p>
+    </div>
+    <!-- <a class="btn btn-danger btn-sm" href="/cancel/{{ post.id }}" role="button">Cancel</a> -->
+</div>
+<div style="text-align: center;">
+    <a class="btn btn-primary" href="/" role="button">Home</a>
+</div>
+
+
+{% endblock %}

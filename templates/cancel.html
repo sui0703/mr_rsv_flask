@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h2 align = "center">予約をキャンセルしますか？</h2>
+<!-- {% with messages = get_flashed_messages() %}
+{% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %} -->
+<div class="card w-50 mb-3" style="margin: auto;">
+    <div class="card-body">
+        <p class="ml-3" style="font-size: 0.5;">予約 ID :  {{ post.id }}</p>
+        <p class="ml-3" style="font-size: 0.5;">予約者 :  {{ post.name }}</p>
+        <p class="ml-3" style="font-size: 0.5;">利用日 : {{ post.rsv_date.date() }}</p>
+        <p class="ml-3" style="font-size: 0.5;">利用開始時刻 : {{ post.date_start.time() }}</p>
+        <p class="ml-3" style="font-size: 0.5;">利用終了時刻 : {{ post.date_end.time() }}</p>
+        <p class="ml-3" style="font-size: 0.5;">その他 : {{ post.detail }}</p>
+    </div>
+    <form class = "m-5" action="/cancel/{{ post.id }}" method = "POST">
+        <div class="form-group pb-3">
+            <label for = "pw">password</label>
+            <input type = "password" class = "form-control" name = "pw" maxlength = "20">
+        </div>
+        <button type="submit" class="btn btn-danger">Cancel</button>
+    </form>
+    <!-- <a class="btn btn-danger btn-sm" href="/cancel/{{ post.id }}" role="button">Cancel</a> -->
+</div>
+
+{% endblock %}
