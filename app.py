@@ -83,7 +83,7 @@ def delete(id):
         return render_template('cancel.html', post = post)
         # pass
     else: # request.method == 'POST'
-        env_path = os.path.join(os.path.dirname(__file__), '../.env')
+        env_path = os.path.join(os.path.dirname(__file__), 'lib/.env')
         load_dotenv(env_path)
         admin_password = os.environ.get("auth_password")
         print(admin_password)
