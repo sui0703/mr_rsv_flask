@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h2 align = "center">ログイン画面</h2>
-
-<div class="m-5" align = "center">
+<div class="m-5">
     <form class = "m-5" action="/" method = "POST">
         <div class="row pb-3 align-items-center">
             <div class="col-auto">
@@ -12,7 +10,7 @@
             <div class="col-auto">
                 <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" name="username" maxlength="10" required>
             </div>
-            <div class="col-auto" >
+            <div class="col-auto">
                 <span id="passwordHelpInline" class="form-text">
                     Must be 1-10 characters long.
                 </span>
@@ -31,14 +29,7 @@
                 </span>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" href="/login">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
-
-<div style="text-align: center;">
-    <a class="btn btn-light" href="/signup" role="button">sign up</a>
-</div>
-
-
 {% endblock %}
