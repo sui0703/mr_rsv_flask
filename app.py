@@ -6,7 +6,6 @@ from flask_login import UserMixin, LoginManager
 from datetime import datetime, date, timedelta
 import hashlib
 from dotenv import load_dotenv
-from os.path import join, dirname
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rsv.db'
@@ -34,7 +33,6 @@ class mrrsv(db.Model):
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
-    error_message = ''
     today = datetime.now()
     if request.method == 'GET':
         posts = mrrsv.query.order_by(mrrsv.rsv_date).all()
@@ -46,7 +44,7 @@ def index():
                 db.session.delete(post)
                 db.session.commit()
 
-        return render_template('index.html', posts = posts, error_message = error_message)
+        return render_template('index.html', posts = posts)
     else: #request.method == 'POST'
         name = request.form.get('name')
         rsv_date = request.form.get('rsv_date')
@@ -58,17 +56,17 @@ def index():
         pw_sha = hashlib.sha256(pw.encode()).hexdigest()
         apply_date = datetime.now()
         
-        if today  - timedelta(1) >= rsv_date:
-            error_message = 'Error'
-            posts = mrrsv.query.order_by(mrrsv.rsv_date).all()
-            return render_template('index.html', error_message = error_message, posts = posts)
-        date_start = datetime.strptime(date_start, '%H:%M')
-        date_end = datetime.strptime(date_end, '%H:%M')
+        if today  - timedelta(1) >= rsv_date: # 
+            flash("error", "error")
+        else:
+            date_start = datetime.strptime(date_start, '%H:%M')
+            date_end = datetime.strptime(date_end, '%H:%M')
 
-        new_post = mrrsv(name = name, rsv_date = rsv_date, date_start = date_start, date_end = date_end, detail = detail, pw = pw_sha, apply_date = apply_date)
-        
-        db.session.add(new_post)
-        db.session.commit()
+            new_post = mrrsv(name = name, rsv_date = rsv_date, date_start = date_start, date_end = date_end, detail = detail, pw = pw_sha, apply_date = apply_date)
+            
+            db.session.add(new_post)
+            db.session.commit()
+            flash("success", "success")
         return redirect('/')
 
 @app.route('/detail/<int:id>', methods = ['GET'])
@@ -99,6 +97,7 @@ def delete(id):
         else:
             # flash('Wrong password')
             post = mrrsv.query.get(id)
+            flash("error", "error")
             return render_template('cancel.html', post = post)
 
 # @app.route('/login', methods = ['POST', 'GET'])

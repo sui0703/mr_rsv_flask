@@ -2,15 +2,22 @@
 
 {% block body %}
 <h2 align = "center">予約をキャンセルしますか？</h2>
-<!-- {% with messages = get_flashed_messages() %}
-{% if messages %}
-    <ul>
-    {% for message in messages %}
-        <li>{{ message }}</li>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+        {% if category == 'error' %}
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <div>
+                    Error : Wrong Password
+                </div>
+            </div>
+        {% endif %}
     {% endfor %}
     </ul>
 {% endif %}
-{% endwith %} -->
+{% endwith %}
 <div class="card w-50 mb-3" style="margin: auto;">
     <div class="card-body">
         <p class="ml-3" style="font-size: 0.5;">予約 ID :  {{ post.id }}</p>
