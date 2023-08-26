@@ -84,7 +84,6 @@ def delete(id):
         env_path = os.path.join(os.path.dirname(__file__), 'lib/.env')
         load_dotenv(env_path)
         admin_password = os.environ.get("auth_password")
-        print(admin_password)
         # TODO: failed message 
         post = mrrsv.query.get(id)
         pw = request.form.get('pw')
